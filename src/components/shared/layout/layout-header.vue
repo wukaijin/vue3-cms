@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-26 02:28:01
- * @LastEditTime: 2023-01-26 23:58:43
+ * @LastEditTime: 2023-01-28 01:01:59
  * @FilePath: /vue3-cms/src/components/shared/layout/layout-header.vue
  * @Description: null
 -->
@@ -43,7 +43,6 @@ interface Breadcrumb {
   path: string
   clickable: boolean
 }
-// const matchers = ref()
 const matchers = computed<Breadcrumb[]>(() => {
   return route.matched.slice(1).map((r, i) => {
     return {
@@ -53,7 +52,6 @@ const matchers = computed<Breadcrumb[]>(() => {
     }
   })
 })
-console.log(matchers)
 const emits = defineEmits(['toggle-menu'])
 const toggleMenu = () => emits('toggle-menu')
 const navigate = (path: string) => router.push(path)

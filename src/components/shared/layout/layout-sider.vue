@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-26 02:28:01
- * @LastEditTime: 2023-01-27 00:18:12
+ * @LastEditTime: 2023-01-28 02:32:11
  * @FilePath: /vue3-cms/src/components/shared/layout/layout-sider.vue
  * @Description: null
 -->
@@ -25,7 +25,7 @@
         />
         <span v-show="!props.collapsed">
           <span class="text-2xl mr-2">Carlos</span>
-          <span class="text-2xl">CMS</span>
+          <span class="text-xs">CMS</span>
         </span>
       </div>
       <n-menu
@@ -63,10 +63,7 @@ const theme = darkTheme
 const props = defineProps<{
   collapsed: boolean
 }>()
-watch(props, p => {
-  console.log(p)
-})
-// const collapsed = ref(false)
+
 const getIconRenderer = (icon: Component) => () => h(NIcon, null, { default: () => h(icon) })
 const menuOptions: MenuOption[] = [
   {

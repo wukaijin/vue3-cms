@@ -1,11 +1,13 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-26 22:23:24
- * @LastEditTime: 2023-01-27 00:17:02
+ * @LastEditTime: 2023-01-27 01:08:37
  * @FilePath: /vue3-cms/src/themeOverrides.ts
  * @Description: null
  */
-export default {
+import type { GlobalThemeOverrides } from 'naive-ui'
+
+const globalThemeOverrides: GlobalThemeOverrides = {
   common: {
     primaryColor: '#818CF8FF',
     primaryColorHover: '#6366F1FF',
@@ -13,3 +15,4 @@ export default {
     primaryColorSuppl: '#4338CAFF'
   }
 }
+export default globalThemeOverrides

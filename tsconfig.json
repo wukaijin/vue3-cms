@@ -6,7 +6,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["naive-ui/volar"]
+    "types": ["naive-ui/volar"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"]
   },
 
   "references": [

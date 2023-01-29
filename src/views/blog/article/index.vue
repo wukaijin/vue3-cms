@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-26 15:56:01
- * @LastEditTime: 2023-01-28 03:32:34
+ * @LastEditTime: 2023-01-29 22:34:00
  * @FilePath: /vue3-cms/src/views/blog/article/index.vue
  * @Description: null
 -->
@@ -195,7 +195,7 @@ const createColumns = ({
       title: 'Category',
       key: 'category',
       render(row) {
-        return h('span', {}, { default: () => row.category.text })
+        return h('span', {}, { default: () => row.category?.text })
       }
     },
     {

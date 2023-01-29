@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-26 15:55:36
- * @LastEditTime: 2023-01-28 02:27:59
+ * @LastEditTime: 2023-01-29 22:54:54
  * @FilePath: /vue3-cms/src/views/blog/tag/index.vue
  * @Description: null
 -->
@@ -11,7 +11,7 @@
       <n-space>
         <n-button type="primary" @click="addTag">Add</n-button>
       </n-space>
-    </n-layout-header>
+    </n-layout-header>   
     <n-layout-content>
       <n-data-table :columns="columns" :data="tags" :pagination="pagination" :bordered="false" />
     </n-layout-content>

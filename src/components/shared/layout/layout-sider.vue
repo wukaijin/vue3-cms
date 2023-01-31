@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-26 02:28:01
- * @LastEditTime: 2023-01-28 02:32:11
+ * @LastEditTime: 2023-01-31 21:54:13
  * @FilePath: /vue3-cms/src/components/shared/layout/layout-sider.vue
  * @Description: null
 -->
@@ -20,7 +20,7 @@
         <img
           class="w-8 h-8 mr-2 logo-eye"
           style="--gradient-radius: 16px"
-          src="/static-api/logo/transformer-256.png"
+          :src="resolveStatic('static-api/logo/transformer-256.png')"
           alt=""
         />
         <span v-show="!props.collapsed">
@@ -45,9 +45,10 @@
 </template>
 
 <script setup lang="ts">
-import { h, watch } from 'vue'
+import { h } from 'vue'
 import type { Component } from 'vue'
 import { NLayoutSider, NMenu, NIcon, darkTheme } from 'naive-ui'
+import { resolveStatic } from '@/utils'
 import {
   BookmarkOutline,
   ChevronDown,

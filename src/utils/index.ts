@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-26 16:46:13
- * @LastEditTime: 2023-01-26 16:59:57
+ * @LastEditTime: 2023-01-31 21:53:45
  * @FilePath: /vue3-cms/src/utils/index.ts
  * @Description: null
  */
@@ -14,4 +14,8 @@ export const routeToMenu = (config: RouteRecordRaw): MenuOption => {
   const option: MenuOption = {}
   option.key = config.name as string
   return option
+}
+
+export function resolveStatic(src: string): string {
+  return `${location.href}${src}`
 }

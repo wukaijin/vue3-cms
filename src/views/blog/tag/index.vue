@@ -11,7 +11,7 @@
       <n-space>
         <n-button type="primary" @click="addTag">Add</n-button>
       </n-space>
-    </n-layout-header>   
+    </n-layout-header>
     <n-layout-content>
       <n-data-table :columns="columns" :data="tags" :pagination="pagination" :bordered="false" />
     </n-layout-content>

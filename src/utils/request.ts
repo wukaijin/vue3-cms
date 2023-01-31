@@ -1,18 +1,12 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-27 01:21:36
- * @LastEditTime: 2023-01-28 01:02:22
+ * @LastEditTime: 2023-01-30 13:46:11
  * @FilePath: /vue3-cms/src/utils/request.ts
  * @Description: null
  */
 import type { RequestResponse, Response } from '@/types'
-import type {
-  AxiosInstance,
-  AxiosRequestConfig,
-  InternalAxiosRequestConfig,
-  AxiosResponse,
-  Canceler
-} from 'axios'
+import type { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig, Canceler } from 'axios'
 import axios from 'axios'
 import { ref } from 'vue'
 
@@ -28,7 +22,7 @@ const config = {
   // ]
 }
 // create an axios request
-const instance: AxiosInstance = axios.create(config)
+export const instance: AxiosInstance = axios.create(config)
 
 // request interceptor
 instance.interceptors.request.use(

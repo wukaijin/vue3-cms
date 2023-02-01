@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-26 16:46:13
- * @LastEditTime: 2023-01-31 21:53:45
+ * @LastEditTime: 2023-01-31 22:14:45
  * @FilePath: /vue3-cms/src/utils/index.ts
  * @Description: null
  */
@@ -17,5 +17,5 @@ export const routeToMenu = (config: RouteRecordRaw): MenuOption => {
 }
 
 export function resolveStatic(src: string): string {
-  return `${location.href}${src}`
+  return `${location.origin}/${src}`
 }

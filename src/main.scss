@@ -1,7 +1,145 @@
-// @tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  font-family: 'Comic Sans MS', PingFangSC-Regular, 'Microsoft YaHei', SimHei, monospace, Times, serif;
+  font-family: 'Comic Sans MS', PingFangSC-Regular, 'Microsoft YaHei', SimHei, monospace, Times,
+    serif;
+}
+
+.logo-eye {
+  --gradient-radius: 14px;
+  --eye-color: #008cff;
+  background: radial-gradient(
+    var(--gradient-radius) var(--gradient-radius) at 50% 50%,
+    var(--eye-color),
+    transparent
+  );
+  animation: eye-blink 16s ease-in-out infinite;
+}
+.logo-eye-back {
+  position: absolute;
+  --back-height: 50%;
+  --back-width: 60%;
+  --eye-color: #008cff;
+  z-index: -1;
+  top: 10%;
+  left: 20%;
+  width: var(--back-width);
+  height: var(--back-height);
+  background-color: var(--eye-color);
+  animation: eye-blink 16s ease-in-out infinite;
+}
+@keyframes eye-blink {
+  0% {
+    --eye-color: transparent;
+    opacity: 0.8;
+  }
+
+  20% {
+    --eye-color: #008cff;
+    opacity: 1;
+  }
+
+  30% {
+    --eye-color: transparent;
+    opacity: 0.8;
+  }
+
+  50% {
+    --eye-color: #ff8c00;
+    opacity: 1;
+  }
+
+  60% {
+    --eye-color: transparent;
+    opacity: 0.8;
+  }
+
+  80% {
+    --eye-color: #ff003c;
+    opacity: 1;
+  }
+
+  100% {
+    --eye-color: transparent;
+    opacity: 0.8;
+  }
+}
+
+@layer utilities {
+  .required {
+    @apply after:content-['*'] after:ml-0.5 after:text-red-500;
+  }
+}
+
+@layer components {
+  .bg-g-purple {
+    @apply bg-gradient-to-r to-indigo-500 from-purple-500;
+  }
+  .bg-g-fuchsia {
+    @apply bg-gradient-to-r from-fuchsia-500 to-purple-600;
+  }
+  .bg-g-indigo {
+    @apply bg-gradient-to-r from-sky-400 to-indigo-500;
+  }
+  .bg-g-blue {
+    @apply bg-gradient-to-r from-sky-400 to-blue-600;
+  }
+  .bg-g-sky {
+    @apply bg-gradient-to-r from-sky-400 to-indigo-500;
+  }
+  .bg-g-amber {
+    @apply bg-gradient-to-r from-amber-300 to-orange-500;
+  }
+  .bg-g-orange {
+    @apply bg-gradient-to-r from-orange-400 to-pink-600;
+  }
+  .bg-g-green {
+    @apply bg-gradient-to-r from-green-400 to-cyan-500;
+  }
+  .bg-g-cyan {
+    @apply bg-gradient-to-r from-teal-400 to-cyan-400;
+  }
+  .bg-g-rose {
+    @apply bg-gradient-to-r from-pink-500 to-rose-500;
+  }
+  .bg-spectrum-full {
+    background: linear-gradient(red, transparent), linear-gradient(to top left, lime, transparent),
+      linear-gradient(to top right, blue, transparent);
+    background-blend-mode: screen;
+  }
+  .bg-spectrum-light {
+    background: linear-gradient(#f87171, transparent),
+      linear-gradient(to top left, #5eead4, transparent),
+      linear-gradient(to top right, #3b82f6, transparent);
+    background-blend-mode: screen;
+  }
+  .bg-spectrum-light-reverse {
+    background: linear-gradient(#3b82f6, transparent),
+      linear-gradient(to top left, #5eead4, transparent),
+      linear-gradient(to top right, #f87171, transparent);
+    background-blend-mode: screen;
+  }
+  .g-normal {
+    background: linear-gradient(
+      141deg,
+      rgba(191, 102, 255, 1) 0%,
+      rgba(98, 72, 255, 1) 50%,
+      rgba(0, 221, 235, 1) 100%
+    );
+  }
+  .g-light {
+    background: linear-gradient(
+      141deg,
+      rgb(200, 124, 255) 0%,
+      rgb(116, 92, 252) 50%,
+      rgb(63, 241, 253) 100%
+    );
+  }
+}
+
+.font-blog {
+  font-family: 'Comic Sans MS', PingFangSC-Regular, 'Microsoft YaHei', SimHei, monospace, Times,
+    serif;
 }

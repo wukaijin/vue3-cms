@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-26 00:52:36
- * @LastEditTime: 2023-01-26 15:18:18
+ * @LastEditTime: 2023-01-31 22:20:38
  * @FilePath: /vue3-cms/vite.config.ts
  * @Description: null
  */
@@ -28,7 +28,7 @@ export default defineConfig({
         // rewrite: path => path.replace(/^\/music-api/, '')
       },
       '/nest-api': {
-        target: 'http://localhost:3001',
+        target: 'http://106.55.147.116',
         changeOrigin: true
         // rewrite: path => path.replace(/^\/music-api/, '')
       }

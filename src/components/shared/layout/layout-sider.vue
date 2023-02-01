@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-26 02:28:01
- * @LastEditTime: 2023-01-31 21:54:13
+ * @LastEditTime: 2023-02-01 10:46:30
  * @FilePath: /vue3-cms/src/components/shared/layout/layout-sider.vue
  * @Description: null
 -->
@@ -23,7 +23,7 @@
           :src="resolveStatic('static-api/logo/transformer-256.png')"
           alt=""
         />
-        <span v-show="!props.collapsed">
+        <span class="font-blog" v-show="!props.collapsed">
           <span class="text-2xl mr-2">Carlos</span>
           <span class="text-xs">CMS</span>
         </span>
@@ -118,52 +118,4 @@ const expandIcon = () => {
 }
 </script>
 
-<style lang="scss" scoped>
-.logo-eye {
-  --gradient-radius: 14px;
-  --eye-color: #008cff;
-  background: radial-gradient(
-    var(--gradient-radius) var(--gradient-radius) at 50% 50%,
-    var(--eye-color),
-    transparent
-  );
-  animation: eye-blink 16s ease-in-out infinite;
-}
-
-@keyframes eye-blink {
-  0% {
-    --eye-color: transparent;
-    opacity: 0.8;
-  }
-
-  20% {
-    --eye-color: #008cff;
-    opacity: 1;
-  }
-
-  30% {
-    --eye-color: transparent;
-    opacity: 0.8;
-  }
-
-  50% {
-    --eye-color: #ff8c00;
-    opacity: 1;
-  }
-
-  60% {
-    --eye-color: transparent;
-    opacity: 0.8;
-  }
-
-  80% {
-    --eye-color: #ff003c;
-    opacity: 1;
-  }
-
-  100% {
-    --eye-color: transparent;
-    opacity: 0.8;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

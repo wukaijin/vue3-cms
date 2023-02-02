@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-26 00:52:36
- * @LastEditTime: 2023-02-01 22:03:47
+ * @LastEditTime: 2023-02-02 17:37:16
  * @FilePath: /vue3-cms/src/router/index.ts
  * @Description: null
  */
@@ -11,7 +11,6 @@ import {
   type RouteLocationNormalized,
   type NavigationGuardNext
 } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import NotFound from '../views/NotFound.vue'
 import Layout from '@/components/shared/layout/index.vue'
 
@@ -29,11 +28,6 @@ const router = createRouter({
         name: 'BlogCategory'
       },
       children: [blogRoutes]
-    },
-    {
-      path: '/home',
-      name: 'home',
-      component: HomeView
     },
     {
       path: '/login',

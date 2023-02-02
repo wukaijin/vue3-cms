@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-27 01:21:36
- * @LastEditTime: 2023-02-02 14:36:53
+ * @LastEditTime: 2023-02-02 15:11:13
  * @FilePath: /vue3-cms/src/utils/request.ts
  * @Description: null
  */
@@ -93,11 +93,9 @@ instance.interceptors.response.use(
     // console.error('error', error)
     if (useProviderStore().message) {
       const msg = error?.response?.data?.message
-      if (msg) {
-        useProviderStore().message?.error(msg)
-      }
       if (msg === 'Unauthorized') {
         useProviderStore().router?.push('/login')
+        useProviderStore().message?.error(msg)
       }
     }
     return Promise.reject(error?.response?.data || error)

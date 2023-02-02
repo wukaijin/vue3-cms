@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-31 23:53:54
- * @LastEditTime: 2023-02-02 14:51:25
+ * @LastEditTime: 2023-02-02 17:46:49
  * @FilePath: /vue3-cms/src/components/form/login-form.vue
  * @Description: null
 -->
@@ -50,8 +50,10 @@ import { useMessage, type FormInst, type FormRules } from 'naive-ui'
 import useRequest from '@/hooks/useRequest'
 import { userApi } from '@/api/user'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
+const { setUser } = useUserStore()
 
 const loginFormRef = ref<FormInst | null>(null)
 const { run: login } = useRequest(userApi.login, { manual: true })
@@ -77,6 +79,7 @@ const handleSign = (submitData: Partial<User>) => {
       if (res.token) {
         console.log('token', res.token)
         localStorage.setItem('token', res.token)
+        setUser(submitData as User)
         injectToken(res.token)
         router.push('/')
       }

@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-31 22:59:02
- * @LastEditTime: 2023-02-01 10:45:30
+ * @LastEditTime: 2023-02-02 17:39:35
  * @FilePath: /vue3-cms/src/views/login/index.vue
  * @Description: null
 -->
@@ -36,10 +36,12 @@
       </div>
     </div>
   </div>
+  <license />
 </template>
 
 <script setup lang="ts">
 import LoginForm from '@/components/form/login-form.vue'
+import License from '@/components/shared/license.vue'
 import { resolveStatic } from '@/utils'
 </script>
 

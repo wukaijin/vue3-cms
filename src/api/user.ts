@@ -12,6 +12,6 @@ const USER_PREFIX = '/nest-api/user/'
 
 export const userApi = {
   login(data: Partial<User>) {
-    return request<{ token: string }>({ url: `${USER_PREFIX}/login`, data, method: 'POST' })
+    return request<{ token: string }>({ url: `${USER_PREFIX}login`, data, method: 'POST' })
   }
 }

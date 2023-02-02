@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-27 00:33:58
- * @LastEditTime: 2023-02-01 00:04:37
+ * @LastEditTime: 2023-02-01 22:41:32
  * @FilePath: /vue3-cms/src/plugins/naive.ts
  * @Description: null
  */
@@ -10,6 +10,7 @@ import {
   create,
   NButton,
   NIcon,
+  NIconWrapper,
   NInput,
   NInputNumber,
   NMenu,
@@ -20,6 +21,7 @@ import {
   NLayoutHeader,
   NDrawer,
   NDrawerContent,
+  NDropdown,
   NForm,
   NFormItem,
   NFormItemRow,
@@ -35,6 +37,7 @@ const naive = create({
     NLayoutContent,
     NLayoutHeader,
     NIcon,
+    NIconWrapper,
     NSpace,
     NButton,
     NMenu,
@@ -43,6 +46,7 @@ const naive = create({
     NDataTable,
     NDrawer,
     NDrawerContent,
+    NDropdown,
     NForm,
     NFormItem,
     NFormItemRow,

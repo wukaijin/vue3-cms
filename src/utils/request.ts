@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-27 01:21:36
- * @LastEditTime: 2023-01-30 13:46:11
+ * @LastEditTime: 2023-02-02 13:08:11
  * @FilePath: /vue3-cms/src/utils/request.ts
  * @Description: null
  */
@@ -23,6 +23,11 @@ const config = {
 }
 // create an axios request
 export const instance: AxiosInstance = axios.create(config)
+
+const token = localStorage.getItem('token')
+if (token) {
+  injectToken(token)
+}
 
 // request interceptor
 instance.interceptors.request.use(
@@ -72,20 +77,26 @@ instance.interceptors.response.use(
       return Promise.reject({
         code: 10000,
         message: 'Cancel',
-        data: null
+        data: null,
+        success: false
       })
     }
     if (error.code === 'ECONNABORTED') {
       return Promise.reject({
         code: 10001,
         message: 'Timeout',
-        data: null
+        data: null,
+        success: false
       })
     }
     // console.error('error', error)
-    return Promise.reject(error)
+    return Promise.reject(error?.response?.data || error)
   }
 )
+
+export function injectToken(token: string) {
+  instance.defaults.headers.common['Authorization'] = `Bearer ${token}`
+}
 
 function request<T>(config: AxiosRequestConfig): RequestResponse<T> {
   const cancel = ref<Canceler>()

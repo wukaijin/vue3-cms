@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-26 15:56:01
- * @LastEditTime: 2023-01-29 22:34:00
+ * @LastEditTime: 2023-02-01 15:09:16
  * @FilePath: /vue3-cms/src/views/blog/article/index.vue
  * @Description: null
 -->
@@ -18,6 +18,7 @@
         :data="articles"
         :pagination="pagination"
         :bordered="false"
+        scroll-x="1200"
       />
     </n-layout-content>
   </n-layout>
@@ -195,7 +196,13 @@ const createColumns = ({
       title: 'Category',
       key: 'category',
       render(row) {
-        return h('span', {}, { default: () => row.category?.text })
+        return h(
+          'span',
+          {
+            class: 'whitespace-nowrap'
+          },
+          { default: () => row.category?.text }
+        )
       }
     },
     {
@@ -214,7 +221,7 @@ const createColumns = ({
                   'span',
                   {
                     class:
-                      'inline-block mr-2 px-2 py-[2px] rounded-xl text-xs last:mr-0 text-white',
+                      'inline-block mr-2 px-2 py-[2px] rounded-xl text-xs last:mr-0 text-white whitespace-nowrap',
                     style: `background-color: ${tag.color};`
                   },
                   { default: () => tag.text }
@@ -237,6 +244,7 @@ const createColumns = ({
     {
       title: 'Action',
       key: 'actions',
+      fixed: 'right',
       render(row) {
         return h(
           NSpace,

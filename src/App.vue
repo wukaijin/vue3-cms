@@ -1,23 +1,42 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-26 00:52:36
- * @LastEditTime: 2023-01-27 16:06:29
+ * @LastEditTime: 2023-02-01 11:27:35
  * @FilePath: /vue3-cms/src/App.vue
  * @Description: null
 -->
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import { lightTheme, NConfigProvider, NMessageProvider, NDialogProvider } from 'naive-ui'
+import {
+  lightTheme,
+  NConfigProvider,
+  NMessageProvider,
+  NDialogProvider,
+  NLoadingBarProvider,
+  useLoadingBar
+} from 'naive-ui'
 import themeOverrides from './themeOverrides'
+import { defineComponent, h } from 'vue'
+import { useProviderStore } from './stores/provider'
+
+const provider = useProviderStore()
+const ViewComponent = defineComponent({
+  render: () => h(RouterView),
+  setup: () => {
+    provider.setLoadingBar(useLoadingBar())
+  }
+})
 </script>
 
 <template>
   <n-config-provider :theme="lightTheme" :theme-overrides="themeOverrides">
-    <n-message-provider>
-      <n-dialog-provider>
-        <RouterView />
-      </n-dialog-provider>
-    </n-message-provider>
+    <n-loading-bar-provider>
+      <n-message-provider>
+        <n-dialog-provider>
+          <ViewComponent />
+        </n-dialog-provider>
+      </n-message-provider>
+    </n-loading-bar-provider>
   </n-config-provider>
 </template>
 

@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-26 02:28:01
- * @LastEditTime: 2023-01-28 01:01:59
+ * @LastEditTime: 2023-02-01 22:29:16
  * @FilePath: /vue3-cms/src/components/shared/layout/layout-header.vue
  * @Description: null
 -->
@@ -24,7 +24,9 @@
           </n-breadcrumb-item>
         </n-breadcrumb>
       </div>
-      <div></div>
+      <div>
+        <user-action />
+      </div>
     </div>
   </n-layout-header>
 </template>
@@ -34,6 +36,7 @@ import { computed } from 'vue'
 import { Menu } from '@vicons/ionicons5'
 import { NIcon, NLayoutHeader, NBreadcrumb, NBreadcrumbItem } from 'naive-ui'
 import { useRoute, useRouter } from 'vue-router'
+import UserAction from './user-action.vue'
 
 const router = useRouter()
 const route = useRoute()

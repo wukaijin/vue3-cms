@@ -1,10 +1,11 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-27 01:21:36
- * @LastEditTime: 2023-02-02 13:08:11
+ * @LastEditTime: 2023-02-02 14:36:53
  * @FilePath: /vue3-cms/src/utils/request.ts
  * @Description: null
  */
+import { useProviderStore } from '@/stores/provider'
 import type { RequestResponse, Response } from '@/types'
 import type { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig, Canceler } from 'axios'
 import axios from 'axios'
@@ -90,6 +91,15 @@ instance.interceptors.response.use(
       })
     }
     // console.error('error', error)
+    if (useProviderStore().message) {
+      const msg = error?.response?.data?.message
+      if (msg) {
+        useProviderStore().message?.error(msg)
+      }
+      if (msg === 'Unauthorized') {
+        useProviderStore().router?.push('/login')
+      }
+    }
     return Promise.reject(error?.response?.data || error)
   }
 )

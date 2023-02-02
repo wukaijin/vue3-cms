@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-26 15:51:31
- * @LastEditTime: 2023-01-28 02:10:17
+ * @LastEditTime: 2023-02-02 14:24:54
  * @FilePath: /vue3-cms/src/views/blog/category/index.vue
  * @Description: null
 -->
@@ -133,8 +133,8 @@ async function handleAdd() {
     message.success('Added')
     fetchCategories()
     drawerVisible.value = false
-  } catch (error) {
-    message.error('It seems something wrong.')
+  } catch (error: any) {
+    message.error(error?.message || 'It seems something wrong.')
   }
 }
 async function handleEdit() {
@@ -148,8 +148,8 @@ async function handleEdit() {
     message.success('Edited')
     fetchCategories()
     drawerVisible.value = false
-  } catch (error) {
-    message.error('It seems something wrong.')
+  } catch (error: any) {
+    message.error(error?.message || 'It seems something wrong.')
   }
 }
 async function handleDelete(row: Category) {
@@ -157,8 +157,8 @@ async function handleDelete(row: Category) {
     await runDeleteCategory(row.id)
     message.success('Deleted')
     fetchCategories()
-  } catch (error) {
-    message.error('It seems something wrong.')
+  } catch (error: any) {
+    message.error(error?.message || 'It seems something wrong.')
   }
 }
 

@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-31 23:53:54
- * @LastEditTime: 2023-02-01 22:43:30
+ * @LastEditTime: 2023-02-02 14:51:25
  * @FilePath: /vue3-cms/src/components/form/login-form.vue
  * @Description: null
 -->
@@ -29,7 +29,12 @@
     </n-form-item>
     <div class="flex justify-end">
       <n-space>
-        <button class="leading-[34px] hover:underline active:text-indigo-500">Anonymous</button>
+        <button
+          class="leading-[34px] hover:underline active:text-indigo-500"
+          @click="signInAnonymous"
+        >
+          Anonymous
+        </button>
         <n-button type="primary" @click="signIn">Sign in</n-button>
       </n-space>
     </div>
@@ -60,25 +65,33 @@ const rules: FormRules = {
   name: [{ required: true }, { min: 6 }],
   password: [{ required: true }, { min: 6 }]
 }
-
+const signInAnonymous = () => {
+  handleSign({
+    name: 'anonymous',
+    password: '123456'
+  })
+}
+const handleSign = (submitData: Partial<User>) => {
+  login(submitData)
+    .then(res => {
+      if (res.token) {
+        console.log('token', res.token)
+        localStorage.setItem('token', res.token)
+        injectToken(res.token)
+        router.push('/')
+      }
+    })
+    .catch(err => {
+      console.log('err', err)
+      message.error(err?.message)
+    })
+}
 const signIn = (e: MouseEvent | KeyboardEvent) => {
   e.preventDefault()
   loginFormRef.value?.validate(errors => {
     if (!errors) {
       // message.success('验证成功')
-      login({ ...model.value })
-        .then(res => {
-          if (res.token) {
-            console.log('token', res.token)
-            localStorage.setItem('token', res.token)
-            injectToken(res.token)
-            router.push('/')
-          }
-        })
-        .catch(err => {
-          console.log('err', err)
-          message.error(err?.message)
-        })
+      handleSign({ ...model.value })
     } else {
       console.log(errors)
       // message.error('验证失败')

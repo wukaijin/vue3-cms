@@ -1,19 +1,20 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-26 00:52:36
- * @LastEditTime: 2023-02-01 11:27:35
+ * @LastEditTime: 2023-02-02 14:35:27
  * @FilePath: /vue3-cms/src/App.vue
  * @Description: null
 -->
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterView, useRouter } from 'vue-router'
 import {
   lightTheme,
   NConfigProvider,
   NMessageProvider,
   NDialogProvider,
   NLoadingBarProvider,
-  useLoadingBar
+  useLoadingBar,
+  useMessage
 } from 'naive-ui'
 import themeOverrides from './themeOverrides'
 import { defineComponent, h } from 'vue'
@@ -24,6 +25,8 @@ const ViewComponent = defineComponent({
   render: () => h(RouterView),
   setup: () => {
     provider.setLoadingBar(useLoadingBar())
+    provider.setMessage(useMessage())
+    provider.setRouter(useRouter())
   }
 })
 </script>

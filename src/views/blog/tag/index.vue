@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-26 15:55:36
- * @LastEditTime: 2023-01-29 22:54:54
+ * @LastEditTime: 2023-02-02 14:25:04
  * @FilePath: /vue3-cms/src/views/blog/tag/index.vue
  * @Description: null
 -->
@@ -117,8 +117,8 @@ async function handleAdd() {
     message.success('Added')
     fetchTags()
     drawerVisible.value = false
-  } catch (error) {
-    message.error('It seems something wrong.')
+  } catch (error: any) {
+    message.error(error?.message || 'It seems something wrong.')
   }
 }
 async function handleEdit() {
@@ -129,8 +129,8 @@ async function handleEdit() {
     message.success('Edited')
     fetchTags()
     drawerVisible.value = false
-  } catch (error) {
-    message.error('It seems something wrong.')
+  } catch (error: any) {
+    message.error(error?.message || 'It seems something wrong.')
   }
 }
 async function handleDelete(row: Tag) {
@@ -138,8 +138,8 @@ async function handleDelete(row: Tag) {
     await runDeleteTag(row.id)
     message.success('Deleted')
     fetchTags()
-  } catch (error) {
-    message.error('It seems something wrong.')
+  } catch (error: any) {
+    message.error(error?.message || 'It seems something wrong.')
   }
 }
 

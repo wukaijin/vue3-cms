@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-26 00:52:36
- * @LastEditTime: 2023-02-03 14:13:33
+ * @LastEditTime: 2023-02-03 23:09:44
  * @FilePath: /vue3-cms/src/router/index.ts
  * @Description: null
  */
@@ -88,8 +88,7 @@ router.beforeEach(
         next()
       } else {
         // 其他没有访问权限的页面将被重定向到登录页面
-        next()
-        // next('/login')
+        next('/login')
       }
     }
   }

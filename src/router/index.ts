@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-26 00:52:36
- * @LastEditTime: 2023-02-02 17:37:16
+ * @LastEditTime: 2023-02-03 14:13:33
  * @FilePath: /vue3-cms/src/router/index.ts
  * @Description: null
  */
@@ -32,15 +32,10 @@ const router = createRouter({
     {
       path: '/login',
       name: 'Login',
-      component: () => import('@/views/login/index.vue')
-    },
-    {
-      path: '/about',
-      name: 'about',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      component: () => import('@/views/login/index.vue')
     },
     {
       path: '/404',

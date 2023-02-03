@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-26 15:51:31
- * @LastEditTime: 2023-02-02 14:24:54
+ * @LastEditTime: 2023-02-03 22:58:14
  * @FilePath: /vue3-cms/src/views/blog/category/index.vue
  * @Description: null
 -->
@@ -191,6 +191,16 @@ const createColumns = ({
     {
       title: 'Order',
       key: 'order'
+    },
+    {
+      title: 'Articles',
+      key: 'articles',
+      render(row) {
+        if (!row.articles) {
+          return ''
+        }
+        return h('span', row.articles)
+      }
     },
     {
       title: 'Action',

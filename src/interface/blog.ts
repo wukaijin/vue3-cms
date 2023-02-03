@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-27 02:01:49
- * @LastEditTime: 2023-01-27 15:07:30
+ * @LastEditTime: 2023-02-03 22:57:27
  * @FilePath: /vue3-cms/src/interface/blog.ts
  * @Description: null
  */
@@ -23,6 +23,7 @@ export interface Category {
   description: string
   belongs: Category | null
   defaultPoster: string
+  articles: number
 }
 
 export interface SubmittedCategory {

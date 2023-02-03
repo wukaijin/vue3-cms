@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-28 02:37:53
- * @LastEditTime: 2023-01-29 23:02:42
+ * @LastEditTime: 2023-02-03 13:32:51
  * @FilePath: /vue3-cms/src/views/blog/article/article-form.vue
  * @Description: null
 -->
@@ -49,7 +49,13 @@ const { categories } = useCategoryStore()
 const { tags } = useTagStore()
 const categoryOptions = computed<SelectOption[]>(() => {
   if (!categories || !categories.length) return []
-  return categories.map(c => ({ label: c.text, value: c.id }))
+  const result = categories.filter(c => c.belongs)
+  const cd = categories.filter(c => !c.belongs)
+  cd.forEach(c => {
+    if (result.find(r => r.belongs?.id === c.id)) return
+    result.unshift(c)
+  })
+  return result.map(c => ({ label: c.text, value: c.id }))
 })
 
 const tagOptions = computed<SelectOption[]>(() => {

@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-27 01:59:53
- * @LastEditTime: 2023-01-28 03:28:42
+ * @LastEditTime: 2023-02-03 11:18:35
  * @FilePath: /vue3-cms/src/api/blog.ts
  * @Description: null
  */
@@ -47,8 +47,8 @@ export const CategoryApi = {
 }
 
 export const ArticleApi = {
-  findAll() {
-    return request<Article[]>({ url: `${BLOG_PREFIX}article`, method: 'GET' })
+  findAll(query?: any) {
+    return request<Article[]>({ url: `${BLOG_PREFIX}article`, params: query, method: 'GET' })
   },
   findByCategoryId(id: string) {
     return request<Article[]>({

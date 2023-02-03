@@ -1,16 +1,15 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-26 15:56:01
- * @LastEditTime: 2023-02-02 14:25:52
+ * @LastEditTime: 2023-02-03 12:51:19
  * @FilePath: /vue3-cms/src/views/blog/article/index.vue
  * @Description: null
 -->
 <template>
   <n-layout>
     <n-layout-header class="py-4">
-      <n-space>
-        <n-button type="primary" @click="addArticle">Add</n-button>
-      </n-space>
+      <filter-form :model="model" @search="search" />
+      <n-button type="primary" @click="addArticle">Add</n-button>
     </n-layout-header>
     <n-layout-content>
       <n-data-table
@@ -41,6 +40,7 @@
 import { h, ref, reactive } from 'vue'
 import type { ComponentPublicInstance } from 'vue'
 import { ArticleApi } from '@/api/blog'
+import FilterForm from './filter-form.vue'
 import { ArticleState, type Article, type SubmitArticle } from '@/interface/blog'
 import {
   NButton,
@@ -55,12 +55,19 @@ import { useCategoryStore } from '@/stores/category'
 import { useTagStore } from '@/stores/tag'
 import ArticleForm from './article-form.vue'
 import useRequest from '@/hooks/useRequest'
+import type { ArticleQuery } from './types'
 
 const { fetchCategories: fetchCategoriesInStore } = useCategoryStore()
 const { fetchTags: fetchTagsInStore } = useTagStore()
 
 const message = useMessage()
 const dialog = useDialog()
+
+const model = ref<ArticleQuery>({
+  title: '',
+  category: '',
+  tags: []
+})
 
 const initData = (): Partial<SubmitArticle> => ({
   id: '',
@@ -89,6 +96,7 @@ const { run: runFetchArticle, loading: loadingDetail } = useRequest(ArticleApi.f
   manual: true
 })
 
+const search = () => fetchArticles({ ...model.value })
 const form = ref<ComponentPublicInstance<typeof ArticleForm>>()
 
 function validate() {
@@ -148,7 +156,7 @@ async function handleAdd() {
   try {
     await runAddArticle(copy)
     message.success('Added')
-    fetchArticles()
+    search()
     drawerVisible.value = false
   } catch (error: any) {
     message.error(error?.message || 'It seems something wrong.')

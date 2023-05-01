@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-26 02:28:01
- * @LastEditTime: 2023-02-01 10:46:30
+ * @LastEditTime: 2023-04-29 10:05:01
  * @FilePath: /vue3-cms/src/components/shared/layout/layout-sider.vue
  * @Description: null
 -->
@@ -89,6 +89,19 @@ const menuOptions: MenuOption[] = [
         key: '/blog/article',
         path: '/blog/article',
         icon: getIconRenderer(DocumentText)
+      }
+    ]
+  },
+  {
+    label: 'Server',
+    key: 'server',
+    icon: getIconRenderer(Newspaper),
+    children: [
+      {
+        label: 'Image',
+        key: '/server/image',
+        path: '/server/image',
+        icon: getIconRenderer(Folder)
       }
     ]
   }

@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-26 00:52:36
- * @LastEditTime: 2023-02-03 23:09:44
+ * @LastEditTime: 2023-04-27 21:16:35
  * @FilePath: /vue3-cms/src/router/index.ts
  * @Description: null
  */
@@ -15,10 +15,11 @@ import NotFound from '../views/NotFound.vue'
 import Layout from '@/components/shared/layout/index.vue'
 
 import blogRoutes from './blog'
+import serverRoutes from './server'
 import { useProviderStore } from '@/stores/provider'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
@@ -27,7 +28,7 @@ const router = createRouter({
       redirect: {
         name: 'BlogCategory'
       },
-      children: [blogRoutes]
+      children: [blogRoutes, serverRoutes]
     },
     {
       path: '/login',

@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-04-27 21:12:41
- * @LastEditTime: 2023-05-01 22:12:48
+ * @LastEditTime: 2023-05-02 19:03:23
  * @FilePath: /vue3-cms/src/views/server/image/index.vue
  * @Description: null
 -->
@@ -9,7 +9,7 @@
   <n-layout>
     <n-layout-header class="py-4">
       <n-space>
-        <n-button type="primary">Upload</n-button>
+        <n-button type="primary" @click="uploadAction">Upload</n-button>
       </n-space>
     </n-layout-header>
     <n-layout-content class="overflow-hidden">
@@ -24,7 +24,7 @@
           />
         </div>
         <div class="flex-1 px-8">
-          <div class="">
+          <div class="pb-4">
             <n-space>
               <n-button type="primary" @click="addAction">Add</n-button>
               <n-button v-if="deleteButtonVisible" type="error" @click="handleDelete"
@@ -32,66 +32,113 @@
               >
             </n-space>
           </div>
-          <div class="grid grid-flow-col grid-cols-3 gap-4">
-            <div class="" v-for="img of images" :key="img.key">
-              <div class="shadow-lg">
-                <n-image
-                  style="vertical-align: bottom"
-                  :src="resolveStatic(`static-api/${img.key}`)"
-                />
-              </div>
-              <div class="mt-2">
-                <span>{{ img.label }}</span>
-              </div>
+          <div class="shadow-lg inline-block mr-4 last:mr-0" v-for="img of images" :key="img.key">
+            <div class="max-w-[200px]">
+              <n-image
+                style="vertical-align: bottom"
+                :src="resolveStatic(`static-api/${img.key}`)"
+              />
+            </div>
+            <div class="m-2">
+              <span>{{ img.label }}</span>
             </div>
           </div>
         </div>
       </div>
+      <n-modal v-model:show="modalVisible">
+        <n-card
+          style="width: 600px"
+          :title="modalType === 'add' ? 'New Folder' : 'Upload Image'"
+          :bordered="false"
+          size="huge"
+          role="dialog"
+          aria-modal="true"
+        >
+          <n-form
+            v-show="modalType === 'add'"
+            ref="addFormRef"
+            :model="model"
+            :show-label="false"
+            :rules="rules"
+          >
+            <n-form-item label="path" path="path">
+              <n-cascader
+                v-model:value="model.path"
+                placeholder="path"
+                expand-trigger="click"
+                :options="folders"
+                :multiple="false"
+                :show-path="true"
+              >
+              </n-cascader>
+            </n-form-item>
+            <n-form-item label="name" path="name">
+              <n-input placeholder="name" v-model:value="model.name">
+                <template #prefix>
+                  <n-icon :component="Folder" />
+                </template>
+              </n-input>
+            </n-form-item>
+          </n-form>
+          <n-form
+            v-show="modalType === 'upload'"
+            ref="uploadImageFormRef"
+            :model="imageModel"
+            :show-label="false"
+            :rules="imageRules"
+          >
+            <n-form-item label="path" path="path">
+              <n-cascader
+                v-model:value="imageModel.path"
+                placeholder="path"
+                expand-trigger="click"
+                :options="folders"
+                :multiple="false"
+                :show-path="true"
+              >
+              </n-cascader>
+            </n-form-item>
+            <n-form-item label="name" path="name">
+              <n-input placeholder="name" v-model:value="imageModel.name">
+                <template #prefix>
+                  <n-icon :component="Folder" />
+                </template>
+              </n-input>
+            </n-form-item>
+            <n-form-item label="image" path="image">
+              <n-upload
+                ref="uploadRef"
+                action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
+                :default-upload="false"
+                @change="handleChange"
+                :multiple="false"
+                :max="1"
+                accept="image/*"
+                :file-list="imageModel.fileList"
+              >
+                <n-button>Select Image</n-button>
+              </n-upload>
+            </n-form-item>
+          </n-form>
+          <template #footer>
+            <n-space justify="end">
+              <n-button @click="modalVisible = false">Cancel</n-button>
+              <n-button v-show="modalType === 'add'" type="primary" @click="handleAdd"
+                >Add</n-button
+              >
+              <n-button
+                v-show="modalType === 'upload'"
+                type="primary"
+                @click="handleUpload"
+                :disabled="!imageModel.fileList?.length"
+                >Upload</n-button
+              >
+            </n-space>
+          </template>
+        </n-card>
+      </n-modal>
     </n-layout-content>
   </n-layout>
-  <n-modal v-model:show="modalVisible">
-    <n-card
-      style="width: 600px"
-      title="New Folder"
-      :bordered="false"
-      size="huge"
-      role="dialog"
-      aria-modal="true"
-    >
-      <n-form ref="addFormRef" :model="model" :show-label="false" :rules="rules">
-        <n-form-item label="path" path="path">
-          <!-- <n-input placeholder="path" v-model:value="model.path">
-            <template #prefix>
-              <n-icon :component="ShareSocial" />
-            </template>
-          </n-input> -->
-          <n-cascader
-            v-model:value="model.path"
-            placeholder="path"
-            expand-trigger="click"
-            :options="folders"
-            :multiple="false"
-            :show-path="true"
-          >
-            <!-- <template #prefix> <n-icon :component="ShareSocial" /> </template> -->
-          </n-cascader>
-        </n-form-item>
-        <n-form-item label="name" path="name">
-          <n-input placeholder="name" v-model:value="model.name">
-            <template #prefix>
-              <n-icon :component="Folder" />
-            </template>
-          </n-input>
-        </n-form-item>
-      </n-form>
-      <template #footer>
-        <n-space justify="end">
-          <n-button @click="modalVisible = false">Cancel</n-button>
-          <n-button type="primary" @click="handleAdd">Add</n-button>
-        </n-space>
-      </template>
-    </n-card>
-  </n-modal>
 </template>
 
 <script setup lang="ts">
@@ -108,10 +155,13 @@ import {
   useMessage,
   NModal,
   NCascader,
-  type FormInst
+  NUpload,
+  type FormInst,
+  type UploadFileInfo,
+  type UploadInst
 } from 'naive-ui'
 import type { FormRules } from 'naive-ui'
-import { Folder, ShareSocial } from '@vicons/ionicons5'
+import { Folder } from '@vicons/ionicons5'
 import { ImageApi } from '@/api/server'
 import useRequest from '@/hooks/useRequest'
 import { resolveStatic } from '@/utils'
@@ -127,10 +177,14 @@ const {
   run: fetchImages,
   loading
 } = useRequest(ImageApi.fetchImages, { manual: true })
+const { run: uploadImage } = useRequest(ImageApi.uploadImage, { manual: true })
 
 const addFormRef = ref<FormInst | null>(null)
+const uploadImageFormRef = ref<FormInst | null>(null)
+const uploadRef = ref<UploadInst | null>(null)
 
 const selected = ref<string[]>()
+const modalType = ref<'upload' | 'add'>('upload')
 const modalVisible = ref<boolean>(false)
 const model = ref<{ name: string; path: string }>({
   name: '',
@@ -139,11 +193,15 @@ const model = ref<{ name: string; path: string }>({
 const rules: FormRules = {
   name: [{ required: true }]
 }
+const imageModel = ref<{ name: string; path: string; fileList: Array<UploadFileInfo> }>({
+  name: '',
+  path: '',
+  fileList: []
+})
+const imageRules: FormRules = {}
 const deleteButtonVisible = computed(() => {
-  console.log('deleteButtonVisible', !selected.value || selected.value.length, loading.value)
   if (!selected.value || !selected.value.length) return false
   if (loading.value) return false
-  console.log(images && images.value && images.value.length)
   if (images && images.value && images.value.length) return false
   return true
 })
@@ -153,11 +211,20 @@ const onSelect = (s: string[]) => {
   fetchImages(s[0])
 }
 const addAction = () => {
-  // handleAdd()
+  modalType.value = 'add'
   modalVisible.value = true
   model.value = {
     name: '',
     path: (selected.value ? selected.value[0] : '') || ''
+  }
+}
+const uploadAction = () => {
+  modalType.value = 'upload'
+  modalVisible.value = true
+  imageModel.value = {
+    name: '',
+    path: (selected.value ? selected.value[0] : '') || '',
+    fileList: []
   }
 }
 const handleDelete = () => {
@@ -182,12 +249,28 @@ const handleDelete = () => {
 const handleAdd = () => {
   addFormRef.value?.validate(errors => {
     if (!errors) {
-      message.success('验证成功')
       const { name, path } = model.value
       addFolder(path ? `${path}/${name}` : name).then(res => {
         modalVisible.value = false
+        message.success('ok')
         fetchFolders()
       })
+    }
+  })
+}
+const handleChange = (options: { fileList: UploadFileInfo[] }) => {
+  imageModel.value.fileList = options.fileList
+}
+const handleUpload = () => {
+  uploadImageFormRef.value?.validate(errors => {
+    if (!errors) {
+      const { name, path, fileList } = imageModel.value
+      console.log(name, path, fileList[0])
+      const data = new FormData()
+      if (name) data.append('name', name)
+      if (path) data.append('path', path)
+      data.append('file', fileList[0].file!)
+      uploadImage(data)
     }
   })
 }

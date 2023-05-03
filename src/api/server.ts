@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-04-28 22:00:50
- * @LastEditTime: 2023-05-01 21:58:14
+ * @LastEditTime: 2023-05-03 15:18:53
  * @FilePath: /vue3-cms/src/api/server.ts
  * @Description: null
  */
@@ -12,19 +12,26 @@ const SERVER_PREFIX = '/nest-api/oss/'
 
 export const ImageApi = {
   fetchImageFolders() {
-    return request<TreeOption[]>({ url: `${SERVER_PREFIX}image/folders`, method: 'GET' })
+    return request<TreeOption[]>({ url: `${SERVER_PREFIX}folder`, method: 'GET' })
   },
   fetchImages(path: string) {
     return request<TreeOption[]>({ url: `${SERVER_PREFIX}image/get?path=${path}`, method: 'GET' })
   },
   addFolder(path: string) {
-    return request<boolean>({ url: `${SERVER_PREFIX}image/folder`, method: 'PUT', data: { path } })
+    return request<boolean>({ url: `${SERVER_PREFIX}folder`, method: 'POST', data: { path } })
   },
   deleteFolder(path: string) {
     return request<boolean>({
-      url: `${SERVER_PREFIX}image/folder`,
+      url: `${SERVER_PREFIX}folder`,
       method: 'DELETE',
       data: { path }
+    })
+  },
+  uploadImage(data: FormData) {
+    return request<boolean>({
+      url: `${SERVER_PREFIX}image/upload`,
+      method: 'POST',
+      data
     })
   }
 }

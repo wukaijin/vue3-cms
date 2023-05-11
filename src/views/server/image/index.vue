@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-04-27 21:12:41
- * @LastEditTime: 2023-05-02 19:03:23
+ * @LastEditTime: 2023-05-03 20:50:01
  * @FilePath: /vue3-cms/src/views/server/image/index.vue
  * @Description: null
 -->
@@ -17,7 +17,7 @@
         <div class="w-[200px] min-h-[400px] bg-gray-100">
           <n-tree
             block-line
-            :data="folders"
+            :data="computedTree"
             selectable
             :selected-keys="selected"
             :on-update-selected-keys="onSelect"
@@ -48,78 +48,98 @@
       <n-modal v-model:show="modalVisible">
         <n-card
           style="width: 600px"
-          :title="modalType === 'add' ? 'New Folder' : 'Upload Image'"
+          :title="modalProps.title"
           :bordered="false"
           size="huge"
           role="dialog"
           aria-modal="true"
         >
-          <n-form
-            v-show="modalType === 'add'"
-            ref="addFormRef"
-            :model="model"
-            :show-label="false"
-            :rules="rules"
-          >
-            <n-form-item label="path" path="path">
-              <n-cascader
-                v-model:value="model.path"
-                placeholder="path"
-                expand-trigger="click"
-                :options="folders"
-                :multiple="false"
-                :show-path="true"
-              >
-              </n-cascader>
-            </n-form-item>
-            <n-form-item label="name" path="name">
-              <n-input placeholder="name" v-model:value="model.name">
-                <template #prefix>
-                  <n-icon :component="Folder" />
-                </template>
-              </n-input>
-            </n-form-item>
-          </n-form>
-          <n-form
-            v-show="modalType === 'upload'"
-            ref="uploadImageFormRef"
-            :model="imageModel"
-            :show-label="false"
-            :rules="imageRules"
-          >
-            <n-form-item label="path" path="path">
-              <n-cascader
-                v-model:value="imageModel.path"
-                placeholder="path"
-                expand-trigger="click"
-                :options="folders"
-                :multiple="false"
-                :show-path="true"
-              >
-              </n-cascader>
-            </n-form-item>
-            <n-form-item label="name" path="name">
-              <n-input placeholder="name" v-model:value="imageModel.name">
-                <template #prefix>
-                  <n-icon :component="Folder" />
-                </template>
-              </n-input>
-            </n-form-item>
-            <n-form-item label="image" path="image">
-              <n-upload
-                ref="uploadRef"
-                action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
-                :default-upload="false"
-                @change="handleChange"
-                :multiple="false"
-                :max="1"
-                accept="image/*"
-                :file-list="imageModel.fileList"
-              >
-                <n-button>Select Image</n-button>
-              </n-upload>
-            </n-form-item>
-          </n-form>
+          <div>
+            <n-form
+              v-show="modalType === 'add'"
+              ref="addFormRef"
+              :model="model"
+              :show-label="false"
+              :rules="rules"
+            >
+              <n-form-item label="path" path="path">
+                <n-cascader
+                  v-model:value="model.path"
+                  placeholder="path"
+                  expand-trigger="click"
+                  :options="folders"
+                  :multiple="false"
+                  :show-path="true"
+                >
+                </n-cascader>
+              </n-form-item>
+              <n-form-item label="name" path="name">
+                <n-input placeholder="name" v-model:value="model.name">
+                  <template #prefix>
+                    <n-icon :component="Folder" />
+                  </template>
+                </n-input>
+              </n-form-item>
+            </n-form>
+            <n-form
+              v-show="modalType === 'upload'"
+              ref="uploadImageFormRef"
+              :model="imageModel"
+              :show-label="false"
+              :rules="imageRules"
+            >
+              <n-form-item label="path" path="path">
+                <n-cascader
+                  v-model:value="imageModel.path"
+                  placeholder="path"
+                  expand-trigger="click"
+                  :options="folders"
+                  :multiple="false"
+                  :show-path="true"
+                >
+                </n-cascader>
+              </n-form-item>
+              <n-form-item label="name" path="name">
+                <n-input placeholder="name" v-model:value="imageModel.name">
+                  <template #prefix>
+                    <n-icon :component="Folder" />
+                  </template>
+                </n-input>
+              </n-form-item>
+              <n-form-item label="image" path="image">
+                <n-upload
+                  ref="uploadRef"
+                  action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
+                  :default-upload="false"
+                  @change="handleChange"
+                  :multiple="false"
+                  :max="1"
+                  accept="image/*"
+                  :file-list="imageModel.fileList"
+                >
+                  <n-button>Select Image</n-button>
+                </n-upload>
+              </n-form-item>
+            </n-form>
+            <n-form
+              v-show="modalType === 'rename'"
+              ref="renameFormRef"
+              :model="renameModel"
+              :show-label="false"
+              :rules="rules"
+            >
+              <n-form-item label="path" path="path">
+                <n-input :value="renameModel.path" disabled />
+              </n-form-item>
+              <n-form-item label="name" path="name">
+                <n-input placeholder="name" v-model:value="renameModel.name">
+                  <template #prefix>
+                    <n-icon :component="Folder" />
+                  </template>
+                </n-input>
+              </n-form-item>
+            </n-form>
+          </div>
           <template #footer>
             <n-space justify="end">
               <n-button @click="modalVisible = false">Cancel</n-button>
@@ -131,8 +151,17 @@
                 type="primary"
                 @click="handleUpload"
                 :disabled="!imageModel.fileList?.length"
-                >Upload</n-button
               >
+                Upload
+              </n-button>
+              <n-button
+                v-show="modalType === 'rename'"
+                type="primary"
+                @click="handleRename"
+                :disabled="!renameModel.name"
+              >
+                Rename
+              </n-button>
             </n-space>
           </template>
         </n-card>
@@ -142,7 +171,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, h, computed } from 'vue'
 import {
   NButton,
   NSpace,
@@ -156,12 +185,14 @@ import {
   NModal,
   NCascader,
   NUpload,
+  NIcon,
   type FormInst,
   type UploadFileInfo,
-  type UploadInst
+  type UploadInst,
+  type TreeOption
 } from 'naive-ui'
 import type { FormRules } from 'naive-ui'
-import { Folder } from '@vicons/ionicons5'
+import { Folder, Pencil } from '@vicons/ionicons5'
 import { ImageApi } from '@/api/server'
 import useRequest from '@/hooks/useRequest'
 import { resolveStatic } from '@/utils'
@@ -169,9 +200,44 @@ import { resolveStatic } from '@/utils'
 const dialog = useDialog()
 const message = useMessage()
 
+const modalPropsMap = {
+  add: {
+    title: 'Add Folder',
+    confirmText: 'Add'
+  },
+  upload: {
+    title: 'Upload Image',
+    confirmText: 'Upload'
+  },
+  rename: {
+    title: 'Rename',
+    confirmText: 'Rename'
+  }
+}
 const { data: folders, run: fetchFolders } = useRequest(ImageApi.fetchImageFolders)
 const { run: addFolder } = useRequest(ImageApi.addFolder, { manual: true })
 const { run: deleteFolder } = useRequest(ImageApi.deleteFolder, { manual: true })
+const { run: renameFolder } = useRequest(ImageApi.renameFolder, { manual: true })
+
+function attachActions(tree: TreeOption[]) {
+  if (!tree) return []
+  return tree.map(tree => {
+    const attached = {
+      ...tree,
+      suffix: () =>
+        h(NIcon, {
+          component: Pencil,
+          class: 'text-[#818CF8FF] hover:text-red-400',
+          onclick: () => renameAction(attached)
+        })
+    }
+    if (attached.children && attached.children.length) {
+      attached.children = attachActions(attached.children)
+    }
+    return attached
+  })
+}
+const computedTree = computed(() => attachActions(folders?.value!))
 const {
   data: images,
   run: fetchImages,
@@ -184,7 +250,8 @@ const uploadImageFormRef = ref<FormInst | null>(null)
 const uploadRef = ref<UploadInst | null>(null)
 
 const selected = ref<string[]>()
-const modalType = ref<'upload' | 'add'>('upload')
+const modalType = ref<keyof typeof modalPropsMap>('upload')
+const modalProps = computed(() => modalPropsMap[modalType.value])
 const modalVisible = ref<boolean>(false)
 const model = ref<{ name: string; path: string }>({
   name: '',
@@ -198,7 +265,14 @@ const imageModel = ref<{ name: string; path: string; fileList: Array<UploadFileI
   path: '',
   fileList: []
 })
-const imageRules: FormRules = {}
+const renameModel = ref<{ name: string; path: string }>({
+  name: '',
+  path: ''
+})
+
+const imageRules: FormRules = {
+  path: [{ required: true }]
+}
 const deleteButtonVisible = computed(() => {
   if (!selected.value || !selected.value.length) return false
   if (loading.value) return false
@@ -226,6 +300,13 @@ const uploadAction = () => {
     path: (selected.value ? selected.value[0] : '') || '',
     fileList: []
   }
+}
+const renameAction = (folder: TreeOption) => {
+  console.log(folder)
+  renameModel.value.name = ''
+  renameModel.value.path = folder.key as string
+  modalType.value = 'rename'
+  modalVisible.value = true
 }
 const handleDelete = () => {
   dialog.warning({
@@ -257,6 +338,9 @@ const handleAdd = () => {
       })
     }
   })
+}
+const handleRename = () => {
+  renameFolder(renameModel.value.path, renameModel.value.name)
 }
 const handleChange = (options: { fileList: UploadFileInfo[] }) => {
   imageModel.value.fileList = options.fileList

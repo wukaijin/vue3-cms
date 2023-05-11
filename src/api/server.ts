@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-04-28 22:00:50
- * @LastEditTime: 2023-05-03 15:18:53
+ * @LastEditTime: 2023-05-03 19:41:43
  * @FilePath: /vue3-cms/src/api/server.ts
  * @Description: null
  */
@@ -19,6 +19,9 @@ export const ImageApi = {
   },
   addFolder(path: string) {
     return request<boolean>({ url: `${SERVER_PREFIX}folder`, method: 'POST', data: { path } })
+  },
+  renameFolder(path: string, name: string) {
+    return request<boolean>({ url: `${SERVER_PREFIX}folder`, method: 'PUT', data: { path, name } })
   },
   deleteFolder(path: string) {
     return request<boolean>({

@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-04-27 21:12:41
- * @LastEditTime: 2023-05-03 20:50:01
+ * @LastEditTime: 2023-05-22 17:35:54
  * @FilePath: /vue3-cms/src/views/server/image/index.vue
  * @Description: null
 -->
@@ -32,10 +32,15 @@
               >
             </n-space>
           </div>
-          <div class="shadow-lg inline-block mr-4 last:mr-0" v-for="img of images" :key="img.key">
+          <div
+            class="shadow-lg inline-block mr-4 last:mr-0 mb-4"
+            v-for="img of images"
+            :key="img.key"
+          >
             <div class="max-w-[200px]">
               <n-image
                 style="vertical-align: bottom"
+                :img-props="{ class: 'w-full' }"
                 :src="resolveStatic(`static-api/${img.key}`)"
               />
             </div>
@@ -109,7 +114,6 @@
               <n-form-item label="image" path="image">
                 <n-upload
                   ref="uploadRef"
-                  action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
                   :default-upload="false"
                   @change="handleChange"
                   :multiple="false"
@@ -302,7 +306,6 @@ const uploadAction = () => {
   }
 }
 const renameAction = (folder: TreeOption) => {
-  console.log(folder)
   renameModel.value.name = ''
   renameModel.value.path = folder.key as string
   modalType.value = 'rename'
@@ -340,7 +343,11 @@ const handleAdd = () => {
   })
 }
 const handleRename = () => {
-  renameFolder(renameModel.value.path, renameModel.value.name)
+  renameFolder(renameModel.value.path, renameModel.value.name).then(() => {
+    modalVisible.value = false
+    message.success('ok')
+    fetchFolders()
+  })
 }
 const handleChange = (options: { fileList: UploadFileInfo[] }) => {
   imageModel.value.fileList = options.fileList
@@ -354,7 +361,10 @@ const handleUpload = () => {
       if (name) data.append('name', name)
       if (path) data.append('path', path)
       data.append('file', fileList[0].file!)
-      uploadImage(data)
+      uploadImage(data).then(() => {
+        modalVisible.value = false
+        message.success('ok')
+      })
     }
   })
 }

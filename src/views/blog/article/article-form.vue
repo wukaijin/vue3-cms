@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-01-28 02:37:53
- * @LastEditTime: 2023-02-03 13:32:51
+ * @LastEditTime: 2023-08-23 11:21:19
  * @FilePath: /vue3-cms/src/views/blog/article/article-form.vue
  * @Description: null
 -->
@@ -32,6 +32,9 @@
     </n-form-item>
     <n-form-item label="Tag" path="tags">
       <n-select multiple v-model:value="model.tags" :options="tagOptions" placeholder="Tag" />
+    </n-form-item>
+    <n-form-item label="FilePath" path="filePath">
+      <n-input v-model:value="model.filePath" placeholder="FilePath" />
     </n-form-item>
     <n-form-item label="Content" path="content">
       <n-input type="textarea" v-model:value="model.content" placeholder="Content" />

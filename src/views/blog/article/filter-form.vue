@@ -1,7 +1,7 @@
 <!--
  * @Author: Carlos
  * @Date: 2023-02-03 12:41:38
- * @LastEditTime: 2023-02-03 13:59:31
+ * @LastEditTime: 2023-08-23 11:32:19
  * @FilePath: /vue3-cms/src/views/blog/article/filter-form.vue
  * @Description: null
 -->
@@ -36,10 +36,10 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, onMounted, ref, computed } from 'vue'
-import type { SelectOption } from 'naive-ui'
+import { ref, computed } from 'vue'
 import { useCategoryStore } from '@/stores/category'
 import { useTagStore } from '@/stores/tag'
+import type { SelectOption } from 'naive-ui'
 import type { ArticleQuery } from './types'
 
 const categoryStore = useCategoryStore()

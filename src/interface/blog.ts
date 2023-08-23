@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-27 02:01:49
- * @LastEditTime: 2023-02-03 22:57:27
+ * @LastEditTime: 2023-08-23 11:18:55
  * @FilePath: /vue3-cms/src/interface/blog.ts
  * @Description: null
  */
@@ -41,7 +41,8 @@ export interface Article {
   tags: Tag[]
   category: Category
   state: ArticleState
-  content: string
+  content?: string
+  filePath?: string
   description: string
   poster?: string
 }

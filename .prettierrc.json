@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/prettierrc",
   "printWidth": 100,
   "tabWidth": 2,
   "useTabs": false,
@@ -13,6 +14,5 @@
   "arrowParens": "avoid",
   "insertPragma": false,
   "requirePragma": false,
-  "proseWrap": "never",
-  "endOfLine": "lf"
+  "proseWrap": "never"
 }

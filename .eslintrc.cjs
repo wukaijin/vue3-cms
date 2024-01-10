@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-26 00:52:36
- * @LastEditTime: 2023-01-27 02:04:32
+ * @LastEditTime: 2024-01-10 11:48:54
  * @FilePath: /vue3-cms/.eslintrc.cjs
  * @Description:
  */
@@ -12,9 +12,10 @@ module.exports = {
   root: true,
   extends: [
     'plugin:vue/vue3-essential',
-    '@vue/eslint-config-typescript',
     'eslint:recommended',
-    '@vue/eslint-config-prettier'
+    '@vue/eslint-config-typescript',
+    '@vue/eslint-config-prettier',
+    '@vue/eslint-config-prettier/skip-formatting'
   ],
   rules: {
     'prettier/prettier': [

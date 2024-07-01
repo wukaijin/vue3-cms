@@ -1,7 +1,7 @@
 /*
  * @Author: Carlos
  * @Date: 2023-01-26 00:52:36
- * @LastEditTime: 2023-08-23 11:39:55
+ * @LastEditTime: 2024-01-10 14:51:18
  * @FilePath: /vue3-cms/vite.config.ts
  * @Description: null
  */

@@ -20,11 +20,12 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v3
       with:
-        node-version: 16
+        node-version: 20
     - name: Cache
       id: cache-dependencies
       uses: actions/cache@v3
       with:
+        node-version: 20
         path: |
           **/node_modules
         key: ${{hashFiles('**/pnpm-lock.yaml')}}
@@ -46,6 +47,6 @@ jobs:
         username: ${{ secrets.USER_NAME }}
         password: ${{ secrets.USER_PASS }}
         source: "./dist/"
-        target: "/usr/local/web/cms"
+        target: "/data/web/cms"
         strip_components: 2
         rm: true

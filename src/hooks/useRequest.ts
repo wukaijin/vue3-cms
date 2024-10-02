@@ -79,8 +79,8 @@ function useRequest<T, P extends any[]>(api: Service<T, P>, options?: RequestOpt
         const args = refreshDepsParameters
           ? refreshDepsParameters.value
           : defaultParameters
-          ? defaultParameters
-          : ([] as unknown as P)
+            ? defaultParameters
+            : ([] as unknown as P)
         run(...args)
       },
       { deep: true }

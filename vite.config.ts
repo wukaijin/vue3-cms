@@ -23,13 +23,13 @@ export default defineConfig({
     port: 5174,
     proxy: {
       '/static-api': {
-        target: 'http://106.55.147.116',
+        target: 'http://124.221.48.165',
         changeOrigin: true
         // rewrite: path => path.replace(/^\/music-api/, '')
       },
       '/nest-api': {
-        // target: 'http://106.55.147.116',
-        target: 'http://localhost:3001',
+        target: 'http://124.221.48.165',
+        // target: 'http://localhost:3001',
         changeOrigin: true
         // rewrite: path => path.replace(/^\/music-api/, '')
       }

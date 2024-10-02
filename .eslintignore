@@ -13,3 +13,4 @@ settings.json
 package.json
 .eslintrc.js
 *.config.js
+*.config.cjs

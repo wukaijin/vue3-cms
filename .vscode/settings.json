@@ -1,0 +1,14 @@
+{
+  "cSpell.words": [
+    "composables",
+    "Fira",
+    "ionicons",
+    "Lato",
+    "Pricetag",
+    "rushstack",
+    "vfonts",
+    "vicons",
+    "vitejs"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

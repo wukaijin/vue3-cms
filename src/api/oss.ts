@@ -1,8 +1,8 @@
 /*
  * @Author: Carlos
  * @Date: 2023-04-28 22:00:50
- * @LastEditTime: 2023-05-03 19:41:43
- * @FilePath: /vue3-cms/src/api/server.ts
+ * @LastEditTime: 2024-10-05 22:21:44
+ * @FilePath: /vue3-cms/src/api/oss.ts
  * @Description: null
  */
 import request from '@/utils/request'
@@ -35,6 +35,13 @@ export const ImageApi = {
       url: `${SERVER_PREFIX}image/upload`,
       method: 'POST',
       data
+    })
+  },
+  deleteImage(key: string) {
+    return request<boolean>({
+      url: `${SERVER_PREFIX}image`,
+      method: 'DELETE',
+      data: { key }
     })
   }
 }
